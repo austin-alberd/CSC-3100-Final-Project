@@ -1,7 +1,17 @@
 const express = require("express")
 const {v4:uuidv4} = require("uuid")
 const cors = require("cors")
+const sqlite3 = require("sqlite3")
 
+//Database setup
+const dbMain = new sqlite3.Database('main.db',err=>{
+    if(err){
+        console.error("ERROR:   Could not open connection to database")
+        console.error(err)
+    }else{
+        console.log("SUCCESS:   Connected to database")
+    }
+})
 //express setup
 const HTTP_PORT = 3000
 app = express()
@@ -13,6 +23,66 @@ app.listen(HTTP_PORT,err=>{
     if(err){
         console.error("ERROR:   Could not start server"+err)
     }else{
-        console.log("SUCCESS:   Started server and listening")
+        console.log("SUCCESS:   Started server and listening on port " + HTTP_PORT)
+    }
+})
+
+app.post("/api/skills",(req,res)=>{
+    try{
+        const strSkill = req.body.skill 
+        const strDescription = req.body.description 
+        const strSkillID = uuidv4()
+
+        dbMain.run('INSERT INTO tblSkills VALUES(?,?,?)',[strSkillID,strSkill,strDescription],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not add skill"})
+                console.error(e)
+            }else{
+                res.status(201).json({status:"success",message:"added skill to database", recordID:strSkillID})
+            }
+        })
+    }catch(e){
+        res.status(500).json({status:"error",message:"could not add skill"})
+        console.error(e)
+    }
+})
+
+app.post("/api/credentials",(req,res)=>{
+    try{
+        const strCredential = req.body.skill 
+        const strDescription = req.body.description 
+        const strCredentialID = uuidv4()
+
+        dbMain.run('INSERT INTO tblCredentials VALUES(?,?,?)',[strCredentialID,strCredential,strDescription],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not add skill"})
+                console.error(e)
+            }else{
+                res.status(201).json({status:"success",message:"added skill to database", recordID:strCredentialID})
+            }
+        })
+    }catch(e){
+        res.status(500).json({status:"error",message:"could not add skill"})
+        console.error(e)
+    }
+})
+
+app.post("/api/experience",(req,res)=>{
+    try{
+        const strExperience = req.body.skill 
+        const strDescription = req.body.description 
+        const strExperienceID = uuidv4()
+
+        dbMain.run('INSERT INTO tblExperience VALUES(?,?,?)',[strExperienceID,strExperience,strDescription],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not add skill"})
+                console.error(e)
+            }else{
+                res.status(201).json({status:"success",message:"added skill to database", recordID:strExperienceID})
+            }
+        })
+    }catch(e){
+        res.status(500).json({status:"error",message:"could not add skill"})
+        console.error(e)
     }
 })
