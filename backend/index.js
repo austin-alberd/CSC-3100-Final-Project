@@ -86,3 +86,45 @@ app.post("/api/experience",(req,res)=>{
         console.error(e)
     }
 })
+
+app.get("/api/skills",(req,res)=>{
+    try{
+        dbMain.all("SELECT * FROM tblSkills",[],(err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not retrieve information"})
+            }else{
+                res.status(200).json({status:"success",rows:rows})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not retrieve information"})
+    }
+})
+
+app.get("/api/credentials",(req,res)=>{
+    try{
+        dbMain.all("SELECT * FROM tblCredentials",[],(err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not retrieve information"})
+            }else{
+                res.status(200).json({status:"success",rows:rows})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not retrieve information"})
+    }
+})
+
+app.get("/api/experience",(req,res)=>{
+    try{
+        dbMain.all("SELECT * FROM tblExperience",[],(err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not retrieve information"})
+            }else{
+                res.status(200).json({status:"success",rows:rows})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not retrieve information"})
+    }
+})
