@@ -23,7 +23,7 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                    <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success">Add</button><button class="btn mx-3 mb-2 btn-danger">Remove</button><button class="btn mx-3 mb-2 btn-primary">Edit</button>
+                    <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
@@ -43,7 +43,7 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                    <h2 class="mb-3 mt-4">Experience</h2><button class="btn mx-3 mb-2 btn-success">Add</button><button class="btn mx-3 mb-2 btn-danger">Remove</button><button class="btn mx-3 mb-2 btn-primary">Edit</button>
+                    <h2 class="mb-3 mt-4">Experience</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnExperienceAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnExperienceRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnExperienceEdit">Edit</button>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
@@ -63,11 +63,11 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                    <h2 class="mb-3 mt-4">Certifications and Awards</h2><button class="btn mx-3 mb-2 btn-success">Add</button><button class="btn mx-3 mb-2 btn-danger">Remove</button><button class="btn mx-3 mb-2 btn-primary">Edit</button>
+                    <h2 class="mb-5 mt-4">Certifications and Awards</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnCredentialAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button"  id="btnCredentialRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnCredentialEdit">Edit</button>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                             <tr>
-                                <th>Credentail</th>
+                                <th>Credential</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -81,20 +81,22 @@
             </div>
         </div>
 
-        <footer class="footer d-none d-md-flex d-lg-flex bg-dark text-white fixed-bottom p-2  align-items-center">
+        <!--<footer class="footer d-none d-md-flex d-lg-flex bg-dark text-white fixed-bottom p-2 align-items-center">
             <p>Built by Austin Alberd</p>
             <button id="btnThanks" class="btn btn-outline-info mx-5">Veiw the libraries in this project</button>
-        </footer>
+        </footer>-->
         <script src="js/lib/bootstrap.bundle.min.js"></script>
         <script src="js/lib/sweetalert2.js"></script>
+        <script src="js/script.js"></script>
         <script>
+            /*
             document.querySelector("#btnThanks").addEventListener("click",()=>{
                 Swal.fire({
                     title:"Thank you!",
                     icon:"info",
                     text:"The creation of this project would not have been possible without: Bootstrap, sweetalert2"
                 })
-            })
+            })*/
         </script>
     </body>
 </html>
