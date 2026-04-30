@@ -1,3 +1,4 @@
+const strAPIBaseURL="http://localhost:3000/api"
 //Add Functions
 document.querySelectorAll(".add_button").forEach(button=>{
     button.addEventListener("click",async e=>{
@@ -7,6 +8,10 @@ document.querySelectorAll(".add_button").forEach(button=>{
                         : strButtonID == "btnExperienceAdd" ? "Experience"
                         : strButtonID == "btnCredentialAdd" ? "Credential"
                         : "Undefined"
+        const strRouteName = strTitle == "Skill" ? "skills"
+                            : strTitle == "Experience" ? "experience"
+                            : strTitle == "Credential" ? "credentials"
+                            :"Undefined"
 
         const {value: formValues} = await Swal.fire({
             title:`Add a ${strTitle}`,
@@ -20,7 +25,32 @@ document.querySelectorAll(".add_button").forEach(button=>{
                 }
             })
         
-        if(formValues) Swal.fire(JSON.stringify(formValues))
+        if(formValues){
+            fetch(`${strAPIBaseURL}/${strRouteName}`,{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    skill:formValues[0],
+                    description:formValues[1]
+                })
+            }).then(res=>res.json()).then(data=>{
+                if(data.status=="success"){
+                    Swal.fire({
+                        title:"Success",
+                        icon:"success",
+                        text:"Added item successfully"
+                    })
+                }
+            })
+        }else{
+            Swal.fire({
+                title:"Error",
+                icon:"error",
+                text:"Could not add information"
+            })
+        }
     })
 })
 
