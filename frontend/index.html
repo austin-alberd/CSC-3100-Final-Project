@@ -24,104 +24,114 @@
                 </div>
             </div>
         </nav>
+        <main>
+            <div id="divAddItems" class="d-none" >
+                <div class="card mt-4">
+                    <div class="card-body">
+                            <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button>
+                            <table class="table table-striped table-bordered" id="tblSkill">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Skill</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
 
-        <div id="divAddItems" class="d-none" >
-            <div class="card mt-4">
-                <div class="card-body">
-                        <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button>
-                        <table class="table table-striped table-bordered" id="tblSkill">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Skill</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                </div>
-            </div>
-
-            <div class="card mt-4">
-                <div class="card-body">
-                        <h2 class="mb-3 mt-4">Experience</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnExperienceAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnExperienceRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnExperienceEdit">Edit</button>
-                        <table class="table table-striped table-bordered" id="tblExperience">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Experience</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                </div>
-            </div>
-
-            <div class="card mt-4">
-                <div class="card-body">
-                        <h2 class="mb-5 mt-4">Certifications and Awards</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnCredentialAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button"  id="btnCredentialRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnCredentialEdit">Edit</button>
-                        <table class="table table-striped table-bordered" id="tblCredential">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Credential</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="divCreateResume" class="mx-2 d-block" style="display:none;">
-            <div class="card">
-                <div class="card-body">
-                    <h2>1) Build Your Resume - Resume Items</h2>
-                    <p>Select your skills, expereinces, and certifications to begin creating your resume.</p>
-                    <form id="formResumeItems">
-                        <h4>Select Your Experiences</h4>
-                        <div id="divExperienceChecks"></div>
-                        <h4>Select Your Skills</h4>
-                        <div id="divSkillsChecks"></div>
-                        <h4>Select Your Credentials</h4>
-                        <div id="divCredentialCheck"></div>
-                        <button type="button" class="btn btn-primary col-3 mt-4" id="btnResumeItems">Submit Resume Items</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h2>2) Build Your Resume - Jobs</h2>
-                    <p>Select a job or make a new one. Then click the "Select" button to select a job and make your resume.</p>
-                    <div id="divJobButtons" class="d-block d-md-flex d-lg-flex">
-                        <button class=" mx-2 btn btn-success" id="btnJobAddButton">Add</button>
-                        <button class=" mx-2 btn btn-danger" id="btnJobDeleteButton">Delete</button>
-                        <button class=" mx-2 btn btn-primary" id="btnJobSelectButton">Select</button>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
-                    <table class="table table-striped table-bordered mt-2" id="tblJobs">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Job Name</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                    </table>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                            <h2 class="mb-3 mt-4">Experience</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnExperienceAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnExperienceRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnExperienceEdit">Edit</button>
+                            <table class="table table-striped table-bordered" id="tblExperience">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Experience</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                            <h2 class="mb-5 mt-4">Certifications and Awards</h2><button class="btn mx-3 mb-2 btn-success add_button" id="btnCredentialAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button"  id="btnCredentialRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnCredentialEdit">Edit</button>
+                            <table class="table table-striped table-bordered" id="tblCredential">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Credential</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div id="divCreateResume" class="mx-2 d-block" style="display:none;">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>1) Build Your Resume - Resume Items</h2>
+                        <p>Select your skills, expereinces, and certifications to begin creating your resume.</p>
+                        <form id="formResumeItems">
+                            <h4>Select Your Experiences</h4>
+                            <div id="divExperienceChecks"></div>
+                            <h4>Select Your Skills</h4>
+                            <div id="divSkillsChecks"></div>
+                            <h4>Select Your Credentials</h4>
+                            <div id="divCredentialCheck"></div>
+                            <button type="button" class="btn btn-primary col-3 mt-4" id="btnResumeItems">Submit Resume Items</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h2>2) Build Your Resume - Jobs</h2>
+                        <p>Select a job or make a new one. Then click the "Select" button to select a job and make your resume.</p>
+                        <div id="divJobButtons" class="d-block d-md-flex d-lg-flex">
+                            <button class=" mx-2 btn btn-success" id="btnJobAddButton">Add</button>
+                            <button class=" mx-2 btn btn-danger" id="btnJobDeleteButton">Delete</button>
+                            <button class=" mx-2 btn btn-primary" id="btnJobSelectButton">Select</button>
+                        </div>
+                        <table class="table table-striped table-bordered mt-2" id="tblJobs">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Job Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h2>3) Generate Your Resume</h2>
+                        <p>Once you have selected your items and job click the create button to get your resume</p>
+                        <button type="button" class="btn btn-primary btn-lg">Create My Resume</button>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+
         <script src="js/lib/bootstrap.bundle.min.js"></script>
         <script src="js/lib/sweetalert2.js"></script>
         

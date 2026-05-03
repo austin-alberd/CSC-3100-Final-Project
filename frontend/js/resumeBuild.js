@@ -28,8 +28,7 @@ document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
                     icon:"success",
                     text:"Added item successfully"
                 })
-
-                //Function to build table goes here
+                createJobTable()
             }
         })
     }else{
@@ -39,11 +38,6 @@ document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
             text:"Could not add information"
         })
     }
-})
-
-document.querySelector("#btnResumeItems").addEventListener("click",()=>{
-    const objFormData = new FormData(document.querySelector("#formResumeItems"))
-    console.log(Object.fromEntries(objFormData))
 })
 
 document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
@@ -83,3 +77,68 @@ document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
         })
 })
 
+document.querySelector("#btnJobSelectButton").addEventListener("click",()=>{
+     const objInputOptions ={}
+        JSON.parse(sessionStorage.getItem("jobs")).forEach(row=>{
+            objInputOptions[row[`job_id`]]=row[`job_title`]
+        })
+
+        Swal.fire({
+            title:"Select a Job",
+            input:"select",
+            inputOptions:objInputOptions,
+            showCancelButton:true,
+        }).then(data=>{
+            if(data.isConfirmed){
+                //Logic go here
+                if(sessionStorage.getItem("jobID")){
+                    document.querySelector(`#${CSS.escape(sessionStorage.getItem("jobID"))}`).classList.remove("table-primary")
+                    document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
+                }else{
+                    sessionStorage.setItem("jobID",data.value)
+                    document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
+                }
+            }else{
+                Swal.fire({
+                    icon:'info',
+                    title:"No Job Selected"
+                })
+            }
+        })
+})
+
+document.querySelector("#btnResumeItems").addEventListener("click",()=>{
+    const objFormData = new FormData(document.querySelector("#formResumeItems"))
+    const arrFormData =Object.keys(Object.fromEntries(objFormData))
+
+    let arrExpereinces = []
+    let arrSkills = []
+    let arrCredentials = []
+
+    arrFormData.forEach(entry=>{
+        const arrEntry = entry.split("|")
+        switch (arrEntry[1]){
+            case "experience":
+                arrExpereinces.push(arrEntry[0])
+                break;
+            case "skill":
+                arrSkills.push(arrEntry[0])
+                break;
+            case "credential":
+                arrCredentials.push(arrEntry[0])
+                break;
+            default:
+                console.error("Invalid Key")
+        }
+    })
+
+    const objResumeItemIDS= {
+        experiences:arrExpereinces,
+        skills:arrSkills,
+        credentials:arrCredentials
+    }
+
+    sessionStorage.setItem("resumeItems",JSON.stringify(objResumeItemIDS))
+})
+
+document.querySelector()
