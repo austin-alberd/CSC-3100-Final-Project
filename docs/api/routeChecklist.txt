@@ -1,0 +1,5 @@
+GET, POST, PUT for skills,experiences, and credentials
+    - Good except PUT
+
+GET, POST, PUT for Jobs
+    - Noimp
