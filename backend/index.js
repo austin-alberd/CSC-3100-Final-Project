@@ -129,6 +129,53 @@ app.get("/api/experience",(req,res)=>{
     }
 })
 
+
+app.delete("/api/skills/:id",(req,res)=>{
+    try{
+        const strDeleteID = req.params.id
+        dbMain.run("DELETE FROM tblSkills WHERE skill_id = ?",[strDeleteID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not delete record"})
+            }else{
+                res.status(200).json({status:"success",deletedID:strDeleteID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not remove skill"})
+    }
+})
+
+app.delete("/api/experience/:id",(req,res)=>{
+    try{
+        const strDeleteID = req.params.id
+        dbMain.run("DELETE FROM tblExperience WHERE experience_id = ?",[strDeleteID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not delete record"})
+            }else{
+                res.status(200).json({status:"success",deletedID:strDeleteID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not remove experience"})
+    }
+})
+
+app.delete("/api/credential/:id",(req,res)=>{
+    try{
+        const strDeleteID = req.params.id
+        dbMain.run("DELETE FROM tblCredentials WHERE credential_id = ?",[strDeleteID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not delete record"})
+            }else{
+                res.status(200).json({status:"success",deletedID:strDeleteID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not remove credential"})
+    }
+})
+
+
 app.post("/api/jobs",(req,res)=>{
     try{
         const strJobID = uuidv4()
@@ -145,6 +192,7 @@ app.post("/api/jobs",(req,res)=>{
         res.status(500).json({status:"error",message:"could not create job"})
     }
 })
+
 
 app.get("/api/jobs",(req,res)=>{
     try{
