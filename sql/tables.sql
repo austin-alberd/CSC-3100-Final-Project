@@ -18,3 +18,10 @@ CREATE TABLE "tblExperience" (
 	"experience_description"	TEXT NOT NULL,
 	PRIMARY KEY("experience_id")
 );
+
+CREATE TABLE tblJobs(
+	"job_id" TEXT NOT NULL,
+	"job_title" TEXT NOT NULL,
+	"job_description" TEXT NOT NULL,
+	PRIMARY KEY("job_id")
+)

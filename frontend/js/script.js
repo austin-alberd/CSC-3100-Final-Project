@@ -12,7 +12,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                             : strTitle == "Experience" ? "experience"
                             : strTitle == "Credential" ? "credentials"
                             :"Undefined"
-
+ 
         const {value: formValues} = await Swal.fire({
             title:`Add a ${strTitle}`,
             html:`<label for="txtTitle" class="mt-3">Title</label>

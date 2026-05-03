@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded",async ()=>{
-//Found the bellow on reddit. https://www.reddit.com/r/learnjavascript/comments/1dzrtwq/recommended_style_for_multiple_async_fetch_calls/
+async function populateResumeTables(){
+    // Made this into a function so I can call it later
+    //Found the bellow on reddit. https://www.reddit.com/r/learnjavascript/comments/1dzrtwq/recommended_style_for_multiple_async_fetch_calls/
     const [objExperience,objCredentails,objSkills] = await Promise.all([
         (await fetch(`${strAPIBaseURL}/experience`)).json(),
         (await fetch(`${strAPIBaseURL}/credentials`)).json(),
@@ -12,7 +13,9 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     const arrSkills = objSkills.rows
     console.log(arrCredentials)
 
-    //Put everything into arrays
+    document.querySelector("#divCredentialCheck").innerHTML=""
+     document.querySelector("#divExperienceChecks").innerHTML=""
+     document.querySelector("#divSkillsChecks").innerHTML=""
 
     arrCredentials.forEach(row=>{
         document.querySelector("#divCredentialCheck").innerHTML+=`<div class="form-check"><input class="form-check-input" type="checkbox" value=${row["credential_id"]} id=${row["credential_id"]}><label class="form-check-label" for=${row["credential_id"]}>${row["credential_name"]}</label></div>`
@@ -25,5 +28,9 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     arrSkills.forEach(row=>{
         document.querySelector("#divSkillsChecks").innerHTML+=`<div class="form-check"><input class="form-check-input" type="checkbox" value=${row["skill_id"]} id=${row["skill_id"]}><label class="form-check-label" for=${row["skill_id"]}>${row["skill_name"]}</label></div>`
     })
+}
+
+document.addEventListener("DOMContentLoaded",async ()=>{
+    populateResumeTables()
 })
 
