@@ -2,7 +2,6 @@
 const strAPIBaseURL="http://localhost:3000/api"
 //Display the thank you popup once per browser session
 if(!sessionStorage.getItem("thankYouPopup")){
-    console.log("AHHH")
     Swal.fire({
         title:"Thank you!",
         icon:"info",
@@ -72,7 +71,6 @@ document.querySelectorAll(".add_button").forEach(button=>{
 document.querySelectorAll(".remove_button").forEach(async (button)=>{
     button.addEventListener("click",e=>{
         const strButtonID=e.target.id
-        console.log(strButtonID)
         const strTitle = strButtonID == "btnSkillRemove" ? "skill"
                         : strButtonID == "btnExperienceRemove" ? "experience"
                         : strButtonID == "btnCredentialRemove" ? "credential"
@@ -86,14 +84,12 @@ document.querySelectorAll(".remove_button").forEach(async (button)=>{
         JSON.parse(sessionStorage.getItem(strRouteName)).forEach(row=>{
             objInputOptions[row[`${strTitle}_id`]]=row[`${strTitle}_name`]
         })
-        console.log(objInputOptions)
         
         Swal.fire({
             title:"Select an Item to Delete",
             input:"select",
             icon:"warning",
             inputOptions:objInputOptions,
-            inputPlaceHolder:"Select an item",
             showCancelButton:true
         }).then(data=>{
             if(data.isConfirmed==false){
@@ -130,7 +126,52 @@ document.querySelectorAll(".remove_button").forEach(async (button)=>{
 //Edit Functions
 document.querySelectorAll(".edit_button").forEach(button=>{
     button.addEventListener("click",e=>{
+        const strButtonID=e.target.id
+        const strTitle = strButtonID == "btnSkillEdit" ? "skill"
+                        : strButtonID == "btnExperienceEdit" ? "experience"
+                        : strButtonID == "btnCredentialEdit" ? "credential"
+                        : "Undefined"
+        const strRouteName = strTitle == "skill" ? "skills"
+                            : strTitle == "experience" ? "experience"
+                            : strTitle == "credential" ? "credentials"
+                            :"Undefined"
 
+        const objInputOptions ={}
+        JSON.parse(sessionStorage.getItem(strRouteName)).forEach(row=>{
+            objInputOptions[row[`${strTitle}_id`]]=row[`${strTitle}_name`]
+        })
+
+        Swal.fire({
+            title:"Select an Item to Edit",
+            input:"select",
+            icon:"info",
+            inputOptions:objInputOptions,
+            showCancelButton:true
+        }).then(data=>{
+            if(data.isConfirmed){
+                Swal.fire({
+                    title:"Enter a new description.",
+                    input:"textarea",
+                    inputLabel:"Enter a new description.",
+                    showCancelButton:true
+                }).then(data=>{
+                    if(data.isConfirmed){
+                        //send the request
+                    }else{
+                        Swal.fire({
+                            icon:"info",
+                            title:"No item changed",
+                        })
+                    }
+                })
+            }else{
+                Swal.fire({
+                    icon:"info",
+                    title:"No item changed",
+                })
+            }
+        })
+        
     })
 }) 
 
