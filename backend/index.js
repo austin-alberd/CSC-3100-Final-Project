@@ -138,7 +138,7 @@ app.post("/api/jobs",(req,res)=>{
             if(err){
                 res.status(500).json({status:"error",message:"could not create job"})
             }else{
-                res.status(201).json({status:"success", message:"succesfully retrieved jobs", jobID:strJobID})
+                res.status(201).json({status:"success", message:"succesfully created job", jobID:strJobID})
             }
         })
     }catch(err){

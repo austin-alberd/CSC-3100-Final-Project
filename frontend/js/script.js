@@ -43,7 +43,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                         text:"Added item successfully"
                     })
 
-                    document.querySelector(`#tbl${strTitle} tbody`).innerHTML+=`<tr id=${data.recordID}><td>${formValues[0]}</td><td>${formValues[1]}</td></tr>`
+                    createResumeItemTables()
                 }
             })
         }else{
