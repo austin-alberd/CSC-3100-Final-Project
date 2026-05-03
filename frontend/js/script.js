@@ -149,6 +149,7 @@ document.querySelectorAll(".edit_button").forEach(button=>{
             showCancelButton:true
         }).then(data=>{
             if(data.isConfirmed){
+                const strItemID=data.value
                 Swal.fire({
                     title:"Enter a new description.",
                     input:"textarea",
@@ -156,7 +157,26 @@ document.querySelectorAll(".edit_button").forEach(button=>{
                     showCancelButton:true
                 }).then(data=>{
                     if(data.isConfirmed){
-                        //send the request
+                        fetch(`${strAPIBaseURL}/${strRouteName}/${strItemID}`,{method:'PUT',body:JSON.stringify({description:data.value}),headers:{'Content-type':'application/json'}}).then(res=>{
+                            if(res.ok){
+                                Swal.fire({
+                                    title:"Updated Description",
+                                    icon:"success"
+                                })
+                                createResumeItemTables()
+                            }else{
+                                Swal.fire({
+                                    title:"Could Not Update Description",
+                                    icon:"error"
+                                })
+                            }
+                        }).catch(err=>{
+                            Swal.fire({
+                                title:"Could Not Update Description",
+                                icon:"error"
+                            })
+                        })
+
                     }else{
                         Swal.fire({
                             icon:"info",

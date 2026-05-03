@@ -25,7 +25,7 @@
             </div>
         </nav>
 
-        <div id="divAddItems" class="" >
+        <div id="divAddItems" class="d-none" >
             <div class="card mt-4">
                 <div class="card-body">
                         <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button>
@@ -83,10 +83,10 @@
         </div>
 
 
-        <div id="divCreateResume" class="mx-2" style="display:none;">
+        <div id="divCreateResume" class="mx-2 d-block" style="display:none;">
             <div class="card">
                 <div class="card-body">
-                    <h2>Build Your Resume - Resume Items</h2>
+                    <h2>1) Build Your Resume - Resume Items</h2>
                     <p>Select your skills, expereinces, and certifications to begin creating your resume.</p>
                     <form id="formResumeItems">
                         <h4>Select Your Experiences</h4>
@@ -102,8 +102,8 @@
 
             <div class="card mt-3">
                 <div class="card-body">
-                    <h2>Build Your Resume - Jobs</h2>
-                    <p>Select a job or make a new one</p>
+                    <h2>2) Build Your Resume - Jobs</h2>
+                    <p>Select a job or make a new one. Then click the "Select" button to select a job and make your resume.</p>
                     <div id="divJobButtons" class="d-block d-md-flex d-lg-flex">
                         <button class=" mx-2 btn btn-success" id="btnJobAddButton">Add</button>
                         <button class=" mx-2 btn btn-danger" id="btnJobDeleteButton">Delete</button>

@@ -45,3 +45,4 @@ document.querySelector("#btnResumeItems").addEventListener("click",()=>{
     const objFormData = new FormData(document.querySelector("#formResumeItems"))
     console.log(Object.fromEntries(objFormData))
 })
+

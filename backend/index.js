@@ -175,8 +175,53 @@ app.delete("/api/credentials/:id",(req,res)=>{
     }
 })
 
+app.put("/api/skills/:id",(req,res)=>{
+    try{
+        const strUpdateID = req.params.id
+        const strNewDescription = req.body.description
+        dbMain.run("UPDATE tblSkills SET skill_description=? WHERE skill_id=?",[strNewDescription,strUpdateID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not update record"})
+            }else{
+                res.status(200).json({status:"success",updatedID:strUpdateID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not update record"})
+    }
+})
 
+app.put("/api/experience/:id",(req,res)=>{
+    try{
+        const strUpdateID = req.params.id
+        const strNewDescription = req.body.description
+        dbMain.run("UPDATE tblExperience SET experience_description=? WHERE experience_id=?",[strNewDescription,strUpdateID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not update record"})
+            }else{
+                res.status(200).json({status:"success",updatedID:strUpdateID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not update record"})
+    }
+})
 
+app.put("/api/credentials/:id",(req,res)=>{
+    try{
+        const strUpdateID = req.params.id
+        const strNewDescription = req.body.description
+        dbMain.run("UPDATE tblCredentials SET credential_description=? WHERE credential_id=?",[strNewDescription,strUpdateID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not update record"})
+            }else{
+                res.status(200).json({status:"success",updatedID:strUpdateID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not update record"})
+    }
+})
 
 app.post("/api/jobs",(req,res)=>{
     try{
@@ -207,5 +252,20 @@ app.get("/api/jobs",(req,res)=>{
         })
     }catch(err){
         res.status(500).json({status:"error",message:"could not retrieve jobs"})
+    }
+})
+
+app.delete("/api/jobs/:id",(req,res)=>{
+    try{
+        const strDeleteID = req.params.id
+        dbMain.run("DELETE FROM tblJobs WHERE job_id = ?",[strDeleteID],err=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not delete job"})
+            }else{
+                res.status(200).json({status:"success",message:"successfully deleted job",deletedID:strDeleteID})
+            }
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not delete job"})
     }
 })
