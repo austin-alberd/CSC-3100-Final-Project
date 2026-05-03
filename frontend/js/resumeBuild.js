@@ -46,3 +46,40 @@ document.querySelector("#btnResumeItems").addEventListener("click",()=>{
     console.log(Object.fromEntries(objFormData))
 })
 
+document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
+        const objInputOptions ={}
+        JSON.parse(sessionStorage.getItem("jobs")).forEach(row=>{
+            objInputOptions[row[`job_id`]]=row[`job_title`]
+        })
+
+        Swal.fire({
+            title:"Select a Job to Delete",
+            input:"select",
+            inputOptions:objInputOptions,
+            showCancelButton:true,
+            icon:"warning"
+        }).then(data=>{
+            if(data.isConfirmed){
+                fetch(`${strAPIBaseURL}/jobs/${data.value}`,{"method":"DELETE"}).then(res=>{
+                    if(res.ok){
+                        Swal.fire({
+                            title:"Deleted Job",
+                            icon:"success"
+                        })
+                        createJobTable()
+                    }else{
+                        Swal.fire({
+                            title:"Could not Delete Job",
+                            icon:"error"
+                        })
+                    }
+                })
+            }else{
+                Swal.fire({
+                    title:"No Job Deleted",
+                    icon:"info"
+                })
+            }
+        })
+})
+
