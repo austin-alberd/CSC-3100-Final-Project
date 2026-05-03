@@ -160,7 +160,7 @@ app.delete("/api/experience/:id",(req,res)=>{
     }
 })
 
-app.delete("/api/credential/:id",(req,res)=>{
+app.delete("/api/credentials/:id",(req,res)=>{
     try{
         const strDeleteID = req.params.id
         dbMain.run("DELETE FROM tblCredentials WHERE credential_id = ?",[strDeleteID],err=>{

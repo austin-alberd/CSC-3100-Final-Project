@@ -102,7 +102,25 @@ document.querySelectorAll(".remove_button").forEach(async (button)=>{
                     icon:"info"
                 })
             }else{
-                
+                fetch(`${strAPIBaseURL}/${strRouteName}/${data.value}`,{method:'DELETE'}).then(res=>{
+                    if(res.ok){
+                        return res.json()
+                    }else{
+                        throw new Error("Bad response")
+                    }
+                }).then(data=>{
+                    Swal.fire({
+                        title:"Removed Item",
+                        icon:"success"
+                    })
+                    createResumeItemTables()
+                }).catch(err=>{
+                    Swal.fire({
+                        title:"Could Not Remove Item",
+                        icon:"error"
+                    })
+                    console.error(err)
+                })
             }
         })
 
