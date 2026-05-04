@@ -11,3 +11,11 @@ An AI resume builder built as a final project for CSC 3100 Introduction to Web D
 
 ## AI Statement
 The author did not use Artifical Intelligence tools in the creation of this project.
+
+## Running This Project
+ - Ensure you have [node JS](https://nodejs.org/en) installed
+ - cd into `backend`
+ - run `npm init`
+ - run `npm install`
+ - run `node index.js`
+ - Open `/frontend/index.js` (just click on the file) and use the application!
