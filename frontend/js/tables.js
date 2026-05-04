@@ -1,7 +1,4 @@
-/**
- * tables.js
- * Handles the initial creation of the tables and holds the functions to create the tables again.
- */
+//Builds the resume item tables and stores the results of what was retreived
 async function createResumeItemTables(){
     //Found the bellow on reddit. https://www.reddit.com/r/learnjavascript/comments/1dzrtwq/recommended_style_for_multiple_async_fetch_calls/
     const [objExperience,objCredentails,objSkills] = await Promise.all([
@@ -36,6 +33,7 @@ async function createResumeItemTables(){
     sessionStorage.setItem("experience",JSON.stringify(arrExperience))
 }
 
+//Creates the form fields on teh build a resume tab
 async function populateResumeTables(){
     // Made this into a function so I can call it later
     //Found the bellow on reddit. https://www.reddit.com/r/learnjavascript/comments/1dzrtwq/recommended_style_for_multiple_async_fetch_calls/
@@ -71,6 +69,7 @@ async function populateResumeTables(){
     sessionStorage.setItem("experience",JSON.stringify(arrExperience))
 }
 
+//Builds out the jobs table
 async function createJobTable(){
     const objJobsRes = await Promise.all([
         (await fetch(`${strAPIBaseURL}/jobs`)).json()
@@ -85,6 +84,7 @@ async function createJobTable(){
     sessionStorage.setItem("jobs",JSON.stringify(arrJobs))
 }
 
+//Build all of the tables when the page loads
 document.addEventListener("DOMContentLoaded",async ()=>{
     createResumeItemTables()
     createJobTable()

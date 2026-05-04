@@ -1,3 +1,4 @@
+//Adds a job to the table
 document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
     const {value: formValues} = await Swal.fire({
             title:`Add a Job`,
@@ -29,7 +30,7 @@ document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
                     icon:"success",
                     text:"Added item successfully"
                 })
-                createJobTable()
+                createJobTable() //Function to recreate everything so we don't have to type it out every time :)
             }
         })
     }else{
@@ -41,7 +42,9 @@ document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
     }
 })
 
+//Delete a job
 document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
+        //construct an object of options for the alert
         const objInputOptions ={}
         JSON.parse(sessionStorage.getItem("jobs")).forEach(row=>{
             objInputOptions[row[`job_id`]]=row[`job_title`]
@@ -61,7 +64,7 @@ document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
                             title:"Deleted Job",
                             icon:"success"
                         })
-                        createJobTable()
+                        createJobTable() //Same idea here regenerate the table
                     }else{
                         Swal.fire({
                             title:"Could not Delete Job",
@@ -78,7 +81,9 @@ document.querySelector("#btnJobDeleteButton").addEventListener("click",()=>{
         })
 })
 
+// Select a job this sets alot of things for the resume generation (mainly session storage items)
 document.querySelector("#btnJobSelectButton").addEventListener("click",()=>{
+     //construct an object of options for the alert
      const objInputOptions ={}
         JSON.parse(sessionStorage.getItem("jobs")).forEach(row=>{
             objInputOptions[row[`job_id`]]=row[`job_title`]
@@ -93,10 +98,13 @@ document.querySelector("#btnJobSelectButton").addEventListener("click",()=>{
             if(data.isConfirmed){
                 //Logic go here
                 if(sessionStorage.getItem("jobID")){
+                    //Do some CSS stuff to add a cool highlight over the selected cell
+                    //We have to do CSS.escape() here because of the UUID id of the table row
                     document.querySelector(`#${CSS.escape(sessionStorage.getItem("jobID"))}`).classList.remove("table-primary")
                     document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
                     sessionStorage.setItem("jobID",data.value)
                 }else{
+                    //Same thing here!
                     sessionStorage.setItem("jobID",data.value)
                     document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
                 }
@@ -110,13 +118,16 @@ document.querySelector("#btnJobSelectButton").addEventListener("click",()=>{
 })
 
 document.querySelector("#btnResumeItems").addEventListener("click",()=>{
+    //Get all of the checked check boxes from the form
     const objFormData = new FormData(document.querySelector("#formResumeItems"))
     const arrFormData =Object.keys(Object.fromEntries(objFormData))
 
+    //Arrays to hold each ID
     let arrExpereinces = []
     let arrSkills = []
     let arrCredentials = []
 
+    // Go through and split up the ids
     arrFormData.forEach(entry=>{
         const arrEntry = entry.split("|")
         switch (arrEntry[1]){
@@ -149,6 +160,7 @@ document.querySelector("#btnResumeItems").addEventListener("click",()=>{
 })
 
 document.querySelector("#btnGenerateResume").addEventListener("click",()=>{
+    //Gets all of the personal information and stores it in session storage to be used later
     const txtFirstName = document.querySelector("#txtFirstName").value
     const txtLastName = document.querySelector("#txtLastName").value
     const txtEmail = document.querySelector("#txtEmail").value

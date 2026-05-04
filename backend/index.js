@@ -3,6 +3,7 @@ const {v4:uuidv4} = require("uuid")
 const cors = require("cors")
 const sqlite3 = require("sqlite3")
 const {GoogleGenAI} = require("@google/genai")
+const path = require("path")
 
 //Database setup
 const dbMain = new sqlite3.Database('main.db',err=>{
@@ -14,9 +15,45 @@ const dbMain = new sqlite3.Database('main.db',err=>{
     }
 })
 
+// Initialize the tables incase they wern't before
+dbMain.run(`
+    CREATE TABLE IF NOT EXISTS "tblSkills" (
+	"skill_id"	TEXT NOT NULL,
+	"skill_name"	TEXT NOT NULL,
+	"skill_description"	TEXT NOT NULL,
+	PRIMARY KEY("skill_id")
+);
+
+CREATE TABLE IF NOT EXISTS "tblCredentials" (
+	"credential_id"	TEXT NOT NULL,
+	"credential_name"	TEXT NOT NULL,
+	"credential_description"	TEXT NOT NULL,
+	PRIMARY KEY("credential_id")
+);
+
+CREATE TABLE IF NOT EXISTS "tblExperience" (
+	"experience_id"	TEXT NOT NULL,
+	"experience_name"	TEXT NOT NULL,
+	"experience_description"	TEXT NOT NULL,
+	PRIMARY KEY("experience_id")
+);
+
+CREATE TABLE IF NOT EXISTS tblJobs(
+	"job_id" TEXT NOT NULL,
+	"job_title" TEXT NOT NULL,
+	"job_description" TEXT NOT NULL,
+	PRIMARY KEY("job_id")
+)`,err=>{
+    if(err){
+        console.log("ERROR:    Could not initialize tables")
+        console.error(err)
+    }else{
+        console.log("SUCCESS:   Initialized Tables")
+    }
+})
+
 //AI Setup
 const GEMINI_MODEL = "gemma-3-1b-it"
-
 let ai = new GoogleGenAI({}) // I know let is unconventional here, but it lets me change the API key so I don't really care.
 
 //express setup
@@ -34,6 +71,7 @@ app.listen(HTTP_PORT,err=>{
     }
 })
 
+// Creates a new skill in the database
 app.post("/api/skills",(req,res)=>{
     try{
         const strSkill = req.body.skill 
@@ -54,6 +92,7 @@ app.post("/api/skills",(req,res)=>{
     }
 })
 
+//Creates a new credential in the database
 app.post("/api/credentials",(req,res)=>{
     try{
         const strCredential = req.body.skill 
@@ -74,6 +113,7 @@ app.post("/api/credentials",(req,res)=>{
     }
 })
 
+//Creates a new experience in the database
 app.post("/api/experience",(req,res)=>{
     try{
         const strExperience = req.body.skill 
@@ -94,6 +134,7 @@ app.post("/api/experience",(req,res)=>{
     }
 })
 
+//Gets all skills
 app.get("/api/skills",(req,res)=>{
     try{
         dbMain.all("SELECT * FROM tblSkills",[],(err,rows)=>{
@@ -108,6 +149,7 @@ app.get("/api/skills",(req,res)=>{
     }
 })
 
+//Gets all credentials
 app.get("/api/credentials",(req,res)=>{
     try{
         dbMain.all("SELECT * FROM tblCredentials",[],(err,rows)=>{
@@ -122,6 +164,7 @@ app.get("/api/credentials",(req,res)=>{
     }
 })
 
+//Gets all experiences
 app.get("/api/experience",(req,res)=>{
     try{
         dbMain.all("SELECT * FROM tblExperience",[],(err,rows)=>{
@@ -136,7 +179,7 @@ app.get("/api/experience",(req,res)=>{
     }
 })
 
-
+//Deletes a skill based on id
 app.delete("/api/skills/:id",(req,res)=>{
     try{
         const strDeleteID = req.params.id
@@ -152,6 +195,7 @@ app.delete("/api/skills/:id",(req,res)=>{
     }
 })
 
+//Deletes an experience based on id
 app.delete("/api/experience/:id",(req,res)=>{
     try{
         const strDeleteID = req.params.id
@@ -167,6 +211,7 @@ app.delete("/api/experience/:id",(req,res)=>{
     }
 })
 
+//Deletes a credential based on id
 app.delete("/api/credentials/:id",(req,res)=>{
     try{
         const strDeleteID = req.params.id
@@ -182,6 +227,7 @@ app.delete("/api/credentials/:id",(req,res)=>{
     }
 })
 
+//Updates a skill based on id
 app.put("/api/skills/:id",(req,res)=>{
     try{
         const strUpdateID = req.params.id
@@ -198,6 +244,7 @@ app.put("/api/skills/:id",(req,res)=>{
     }
 })
 
+//Updates an experience based on id
 app.put("/api/experience/:id",(req,res)=>{
     try{
         const strUpdateID = req.params.id
@@ -214,6 +261,7 @@ app.put("/api/experience/:id",(req,res)=>{
     }
 })
 
+//Updates a credential based on id
 app.put("/api/credentials/:id",(req,res)=>{
     try{
         const strUpdateID = req.params.id
@@ -230,6 +278,7 @@ app.put("/api/credentials/:id",(req,res)=>{
     }
 })
 
+//Creates a new job
 app.post("/api/jobs",(req,res)=>{
     try{
         const strJobID = uuidv4()
@@ -247,7 +296,7 @@ app.post("/api/jobs",(req,res)=>{
     }
 })
 
-
+//Gets all jobs
 app.get("/api/jobs",(req,res)=>{
     try{
         dbMain.all("SELECT * FROM tblJobs",[],(err,rows)=>{
@@ -262,6 +311,7 @@ app.get("/api/jobs",(req,res)=>{
     }
 })
 
+//Deletes a job from the database
 app.delete("/api/jobs/:id",(req,res)=>{
     try{
         const strDeleteID = req.params.id
@@ -277,6 +327,7 @@ app.delete("/api/jobs/:id",(req,res)=>{
     }
 })
 
+//Gives AI suggestions for a skill by id
 app.get("/api/ai-suggestions/skills/:id",async (req,res)=>{
     try{
         const strLookupID = req.params.id
@@ -303,6 +354,7 @@ app.get("/api/ai-suggestions/skills/:id",async (req,res)=>{
     }
 })
 
+//Gives AI suggestions for a credential by id
 app.get("/api/ai-suggestions/credentials/:id",async (req,res)=>{
     try{
         const strLookupID = req.params.id
@@ -329,6 +381,7 @@ app.get("/api/ai-suggestions/credentials/:id",async (req,res)=>{
     }
 })
 
+//Gives AI suggestions for an experience by id
 app.get("/api/ai-suggestions/experience/:id",async (req,res)=>{
     try{
         const strLookupID = req.params.id
@@ -355,6 +408,7 @@ app.get("/api/ai-suggestions/experience/:id",async (req,res)=>{
     }
 })
 
+// Generates an objective statement when given skills and job description
 app.post("/api/ai-suggestions/objective-statement",async (req,res)=>{
     try{
         const strJob=req.body.job
@@ -376,6 +430,7 @@ app.post("/api/ai-suggestions/objective-statement",async (req,res)=>{
     }
 })
 
+// Sets the API key
 app.put("/api/ai-suggestions/set-api-key",(req,res)=>{
     try{
         const strNewAPIKey = req.body.apiKey

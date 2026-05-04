@@ -1,24 +1,28 @@
 
 const strAPIBaseURL="http://localhost:3000/api"
-//Display the thank you popup once per browser session
-if(!sessionStorage.getItem("thankYouPopup")){
-    Swal.fire({
+
+// Acknowledgements button - just shows the libraries used and such
+document.querySelector("#btnAcknowledgements").addEventListener("click",()=>{
+        Swal.fire({
         title:"Thank you!",
         icon:"info",
-        text:"The creation of this project would not have been possible without: Bootstrap, sweetalert2"
+        text:"The creation of this project would not have been possible without: Bootstrap, sweetalert2, and Google Gemini's javascript library"
     })
-    sessionStorage.setItem("thankYouPopup","Yippee")
-}
+})
+
+
 
 //Add Functions
 document.querySelectorAll(".add_button").forEach(button=>{
     button.addEventListener("click",async e=>{
-        //btnSkillAdd,btnExperienceAdd, and btnCredentialAdd
-        const strButtonID=e.target.id
+        const strButtonID=e.target.id //The id from the button we pressed
+
+        //Convert the ID to a tile
         const strTitle = strButtonID == "btnSkillAdd" ? "Skill"
                         : strButtonID == "btnExperienceAdd" ? "Experience"
                         : strButtonID == "btnCredentialAdd" ? "Credential"
                         : "Undefined"
+        //Convert title into the route name
         const strRouteName = strTitle == "Skill" ? "skills"
                             : strTitle == "Experience" ? "experience"
                             : strTitle == "Credential" ? "credentials"
@@ -44,6 +48,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                 }
             })
         
+        //Convert the "sentences" to unordered lists
         let arrDescriptionFromForm = formValues[1].split(".").filter(item=>item!="")
         let strFormDescription = "<ul>"
         arrDescriptionFromForm.forEach(item=>{
@@ -69,7 +74,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                         text:"Added item successfully"
                     })
 
-                    createResumeItemTables()
+                    createResumeItemTables() // Another function to recreate the tables
                 }
             })
         }else{
@@ -85,7 +90,8 @@ document.querySelectorAll(".add_button").forEach(button=>{
 //Remove Functions
 document.querySelectorAll(".remove_button").forEach(async (button)=>{
     button.addEventListener("click",e=>{
-        const strButtonID=e.target.id
+        const strButtonID=e.target.id //ID of clicked button
+
         const strTitle = strButtonID == "btnSkillRemove" ? "skill"
                         : strButtonID == "btnExperienceRemove" ? "experience"
                         : strButtonID == "btnCredentialRemove" ? "credential"
@@ -95,6 +101,7 @@ document.querySelectorAll(".remove_button").forEach(async (button)=>{
                             : strTitle == "credential" ? "credentials"
                             :"Undefined"
 
+        //Create input options for the sweet alert
         const objInputOptions ={}
         JSON.parse(sessionStorage.getItem(strRouteName)).forEach(row=>{
             objInputOptions[row[`${strTitle}_id`]]=row[`${strTitle}_name`]
@@ -211,6 +218,7 @@ document.querySelectorAll(".edit_button").forEach(button=>{
 }) 
 
 
+//AI Feedback button
 document.querySelectorAll(".ai_button").forEach(button=>{
     button.addEventListener("click",e=>{
         const strButtonID=e.target.id
@@ -253,4 +261,3 @@ document.querySelectorAll(".ai_button").forEach(button=>{
         })
     })
 })
-

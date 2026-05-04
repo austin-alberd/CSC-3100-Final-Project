@@ -7,6 +7,7 @@ An AI resume builder built as a final project for CSC 3100 Introduction to Web D
 ## Libraries Used
  - [Bootstrap](https://getbootstrap.com/) - Styling
  - [SweetAlert2](https://sweetalert2.github.io/) - Popups
+ - [Google Gen AI SDK](https://www.npmjs.com/package/@google/genai) - LLM Stuff
 
 ## AI Statement
 The author did not use Artifical Intelligence tools in the creation of this project.

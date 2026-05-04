@@ -1,3 +1,4 @@
+//Generates the actual resume
 async function createResume(){
     //Get the resume object and clear it out
     const divCompleteResume = document.querySelector("#divCompleteResume")
@@ -14,6 +15,7 @@ async function createResume(){
     const objJob = JSON.stringify(JSON.parse(sessionStorage.getItem("jobs")).filter(job=>job["job_id"] == sessionStorage.getItem("jobID"))[0])
     const arrAllQualifications = JSON.stringify([arrSkills,arrExperience,arrCredentails])
 
+    //Get the objective statement then build the rest of the resume after that comes in.
     fetch(`${strAPIBaseURL}/ai-suggestions/objective-statement`,{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({job:objJob,qualifications:arrAllQualifications})}).then(res=>{
         if(res.ok){
             return res.json()
@@ -49,8 +51,8 @@ async function createResume(){
             })
         }
         
+        //Create the Skills Section
         if(arrSkills.length!=0){
-            //Create the Skills Section
             divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
             arrSkills.forEach(skill=>{
                 divCompleteResume.innerHTML+=`
@@ -62,8 +64,8 @@ async function createResume(){
             })
         }
 
+        //Create the Credentials Section
         if(arrCredentails.length!=0){
-            //Create the Credentials Section
             divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
             arrCredentails.forEach(credential=>{
                 divCompleteResume.innerHTML+=`
