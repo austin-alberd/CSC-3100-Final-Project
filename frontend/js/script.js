@@ -166,7 +166,7 @@ document.querySelectorAll(".edit_button").forEach(button=>{
             if(data.isConfirmed){
                 const strItemID=data.value
                 Swal.fire({
-                    title:"Enter a new description.",
+                    title:"Enter a new description. Separate bullet points by periods.",
                     input:"textarea",
                     inputLabel:"Enter a new description.",
                     showCancelButton:true
