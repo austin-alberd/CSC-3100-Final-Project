@@ -139,6 +139,11 @@ document.querySelector("#btnResumeItems").addEventListener("click",()=>{
     }
 
     sessionStorage.setItem("resumeItems",JSON.stringify(objResumeItemIDS))
+
+    Swal.fire({
+        icon:"success",
+        title:"Successfully Selected Resume Items"
+    })
 })
 
 document.querySelector("#btnGenerateResume").addEventListener("click",()=>{
@@ -146,21 +151,28 @@ document.querySelector("#btnGenerateResume").addEventListener("click",()=>{
     const txtLastName = document.querySelector("#txtLastName").value
     const txtEmail = document.querySelector("#txtEmail").value
     const txtPhone = document.querySelector("#txtPhone").value
+    const txtLinkedin = document.querySelector("#txtLinkedin").value
+    const txtGithub = document.querySelector("#txtGithub").value
 
     const objPersonalInformation = {
         firstName:txtFirstName,
         lastName:txtLastName,
         email:txtEmail,
-        phone:txtPhone
+        phone:txtPhone,
+        gitHub:txtGithub,
+        linkedin:txtLinkedin
     }
 
     sessionStorage.setItem("contactInfo",JSON.stringify(objPersonalInformation))
 
     if(sessionStorage.getItem("contactInfo")&&sessionStorage.getItem("resumeItems")&&sessionStorage.getItem("jobID")){
-        Swal.fire({
+        
+        /*Swal.fire({
             icon:"info",
             title:"Generating Your Resume"
-        })
+        })*/
+
+        createResume()
     }else{
         Swal.fire({
             icon:"error",

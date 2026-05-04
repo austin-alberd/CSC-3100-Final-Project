@@ -1,0 +1,58 @@
+async function createResume(){
+    //Get the resume object and clear it out
+    const divCompleteResume = document.querySelector("#divCompleteResume")
+    divCompleteResume.innerHTML=""
+
+    //Get all of the important data we need to make this thing.
+    const objContactInfo = JSON.parse(sessionStorage.getItem("contactInfo"))
+    const arrResumeItemIDs = JSON.parse(sessionStorage.getItem("resumeItems"))
+    const arrSkills = JSON.parse(sessionStorage.getItem("skills")).filter(item=>arrResumeItemIDs["skills"].includes(item["skill_id"]))
+    const arrExperience = JSON.parse(sessionStorage.getItem("experience")).filter(item=>arrResumeItemIDs["experiences"].includes(item["experience_id"]))
+    const arrCredentails = JSON.parse(sessionStorage.getItem("credentials")).filter(item=>arrResumeItemIDs["credentials"].includes(item["credential_id"]))
+
+    //Create items needed to leverage the objective statement creation endpoint
+    const objJob = JSON.stringify(JSON.parse(sessionStorage.getItem("jobs")).filter(job=>job["job_id"] == sessionStorage.getItem("jobID"))[0])
+    const arrAllQualifications = JSON.stringify([arrSkills,arrExperience,arrCredentails])
+
+    //Create the Header Object
+    divCompleteResume.innerHTML+=`
+        <div>
+            <h1 class="fw-bolder">${objContactInfo["firstName"]} ${objContactInfo["lastName"]}</h1>
+            <p>${objContactInfo["email"]} | ${objContactInfo["phone"]} | ${objContactInfo["linkedin"]} | ${objContactInfo["gitHub"]}</p>
+            <hr>
+        </div>
+    `
+
+    //Create the Experience Section
+    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Experience</h2>'
+    arrExperience.forEach(experience=>{
+        divCompleteResume.innerHTML+=`
+            <div class="mx-5">
+                <p class="fw-bold">${experience["experience_name"]}</p>
+                ${experience["experience_description"]}
+            </div>
+        `
+    })
+
+    //Create the Skills Section
+    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
+    arrSkills.forEach(skill=>{
+        divCompleteResume.innerHTML+=`
+            <div class="mx-5">
+                <p class="fw-bold">${skill["skill_name"]}</p>
+                ${skill["skill_description"]}
+            </div>
+        `
+    })
+
+    //Create the Credentials Section
+    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
+    arrCredentails.forEach(credential=>{
+        divCompleteResume.innerHTML+=`
+            <div class="mx-5">
+                <p class="fw-bold">${credential["credential_name"]}</p>
+                ${credential["credential_description"]}
+            </div>
+        `
+    })
+}

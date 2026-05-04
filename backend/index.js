@@ -2,6 +2,7 @@ const express = require("express")
 const {v4:uuidv4} = require("uuid")
 const cors = require("cors")
 const sqlite3 = require("sqlite3")
+const {GoogleGenAI} = require("@google/genai")
 
 //Database setup
 const dbMain = new sqlite3.Database('main.db',err=>{
@@ -12,6 +13,13 @@ const dbMain = new sqlite3.Database('main.db',err=>{
         console.log("SUCCESS:   Connected to database")
     }
 })
+
+//AI Setup
+const GEMINI_API_KEY= process.env.GEMINI_API_KEY
+const GEMINI_MODEL = "gemini-2.5-flash"
+
+const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY})
+
 //express setup
 const HTTP_PORT = 3000
 app = express()
@@ -267,5 +275,83 @@ app.delete("/api/jobs/:id",(req,res)=>{
         })
     }catch(err){
         res.status(500).json({status:"error",message:"could not delete job"})
+    }
+})
+
+app.get("/api/ai-suggestions/skills/:id",async (req,res)=>{
+    try{
+        const strLookupID = req.params.id
+        dbMain.all("SELECT * FROM tblSkills WHERE skill_id = ?",[strLookupID], async (err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+            }else{
+                const objFeedbackRow = rows[0]
+                ai.models.generateContent({
+                    model:GEMINI_MODEL,
+                    contents:`
+                        You are a helpful resume coach. Provide feedback on these resume items given the name and description. DO NOT FOCUS ON FORMAT. Your output MUST be just your feedback NO MARKDOWN.
+                        Name:${objFeedbackRow["skill_name"]}
+                        Description:${objFeedbackRow["skill_description"]}
+                    `
+                }).then(response=>{
+                    res.status(200).json({status:"success",message:"Generated feedback",feedback:response.text})
+                })
+            }
+            
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+    }
+})
+
+app.get("/api/ai-suggestions/credentials/:id",async (req,res)=>{
+    try{
+        const strLookupID = req.params.id
+        dbMain.all("SELECT * FROM tblCredentials WHERE credential_id = ?",[strLookupID], async (err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+            }else{
+                const objFeedbackRow = rows[0]
+                ai.models.generateContent({
+                    model:GEMINI_MODEL,
+                    contents:`
+                        You are a helpful resume coach. Provide feedback on these resume items given the name and description. DO NOT FOCUS ON FORMAT. Your output MUST be just your feedback NO MARKDOWN.
+                        Name:${objFeedbackRow["credential_name"]}
+                        Description:${objFeedbackRow["credential_description"]}
+                    `
+                }).then(response=>{
+                    res.status(200).json({status:"success",message:"Generated feedback",feedback:response.text})
+                })
+            }
+            
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+    }
+})
+
+app.get("/api/ai-suggestions/experience/:id",async (req,res)=>{
+    try{
+        const strLookupID = req.params.id
+        dbMain.all("SELECT * FROM tblExperience WHERE experience_id = ?",[strLookupID], async (err,rows)=>{
+            if(err){
+                res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+            }else{
+                const objFeedbackRow = rows[0]
+                ai.models.generateContent({
+                    model:GEMINI_MODEL,
+                    contents:`
+                        You are a helpful resume coach. Provide feedback on these resume items given the name and description. DO NOT FOCUS ON FORMAT. Your output MUST be just your feedback NO MARKDOWN.
+                        Name:${objFeedbackRow["experience_name"]}
+                        Description:${objFeedbackRow["experience_description"]}
+                    `
+                }).then(response=>{
+                    res.status(200).json({status:"success",message:"Generated feedback",feedback:response.text})
+                })
+            }
+            
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not provide AI suggestions"})
     }
 })

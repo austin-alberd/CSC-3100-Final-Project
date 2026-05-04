@@ -210,3 +210,46 @@ document.querySelectorAll(".edit_button").forEach(button=>{
 }) 
 
 
+document.querySelectorAll(".ai_button").forEach(button=>{
+    button.addEventListener("click",e=>{
+        const strButtonID=e.target.id
+        const strTitle = strButtonID == "btnSkillSuggest" ? "skill"
+                        : strButtonID == "btnExperienceSuggest" ? "experience"
+                        : strButtonID == "btnCredentialSuggest" ? "credential"
+                        : "Undefined"
+        const strRouteName = strTitle == "skill" ? "skills"
+                            : strTitle == "experience" ? "experience"
+                            : strTitle == "credential" ? "credentials"
+                            :"Undefined"
+        
+        const objInputOptions ={}
+        JSON.parse(sessionStorage.getItem(strRouteName)).forEach(row=>{
+            objInputOptions[row[`${strTitle}_id`]]=row[`${strTitle}_name`]
+        })
+
+        Swal.fire({
+            title:"Select an Item",
+            input:"select",
+            text:"Select an item to recieve suggestions from AI on. Note feedback may take some time to come in.",
+            showCancelButton:true,
+            inputOptions:objInputOptions
+        }).then(data=>{
+            if(data.isConfirmed){
+                fetch(`${strAPIBaseURL}/ai-suggestions/${strRouteName}/${data.value}`).then(res=>{
+                    if(res.ok){
+                        return res.json()
+                    }else{
+                        throw new Error("Bad Response")
+                    }
+                }).then(data=>{
+                    Swal.fire({
+                        icon:"info",
+                        title:"Feedback",
+                        text:data.feedback
+                    })
+                })
+            }
+        })
+    })
+})
+
