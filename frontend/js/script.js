@@ -38,6 +38,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                 </ul>
                 <input type="text" id="txtDescription" class="form-control"></input>`,
                 focusConfirm: false,
+                showCancelButton:true,
                 preConfirm: ()=>{
                     return [document.getElementById("txtTitle").value, document.getElementById("txtDescription").value]
                 }

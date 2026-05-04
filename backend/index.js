@@ -16,7 +16,7 @@ const dbMain = new sqlite3.Database('main.db',err=>{
 
 //AI Setup
 const GEMINI_API_KEY= process.env.GEMINI_API_KEY
-const GEMINI_MODEL = "gemini-2.5-flash"
+const GEMINI_MODEL = "gemma-3-1b-it"
 
 const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY})
 

@@ -6,6 +6,7 @@ document.querySelector("#btnJobAddButton").addEventListener("click",async ()=>{
                 <label for="txtDescription" class="mt-3">Job Description</label>
                 <input type="text" id="txtDescription" class="form-control"></input>`,
                 focusConfirm: false,
+                showCancelButton:true,
                 preConfirm: ()=>{
                     return [document.getElementById("txtTitle").value, document.getElementById("txtDescription").value]
                 }
@@ -94,6 +95,7 @@ document.querySelector("#btnJobSelectButton").addEventListener("click",()=>{
                 if(sessionStorage.getItem("jobID")){
                     document.querySelector(`#${CSS.escape(sessionStorage.getItem("jobID"))}`).classList.remove("table-primary")
                     document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
+                    sessionStorage.setItem("jobID",data.value)
                 }else{
                     sessionStorage.setItem("jobID",data.value)
                     document.querySelector(`#${CSS.escape(data.value)}`).classList.add("table-primary")
@@ -167,12 +169,13 @@ document.querySelector("#btnGenerateResume").addEventListener("click",()=>{
 
     if(sessionStorage.getItem("contactInfo")&&sessionStorage.getItem("resumeItems")&&sessionStorage.getItem("jobID")){
         
-        /*Swal.fire({
+        Swal.fire({
             icon:"info",
-            title:"Generating Your Resume"
-        })*/
+            title:"Generating Your Resume. Note this might take some time as the AI is helping with this part"
+        })
 
         createResume()
+        showCompletedResume()
     }else{
         Swal.fire({
             icon:"error",

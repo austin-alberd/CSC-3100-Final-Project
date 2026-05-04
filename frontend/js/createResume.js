@@ -37,37 +37,42 @@ async function createResume(){
             </div>
         `
         //Create the Experience Section
-        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Experience</h2>'
-        arrExperience.forEach(experience=>{
-            divCompleteResume.innerHTML+=`
-                <div class="mx-5">
-                    <p class="fw-bold">${experience["experience_name"]}</p>
-                    ${experience["experience_description"]}
-                </div>
-            `
-        })
+        if(arrExperience.length!=0){
+            divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Experience</h2>'
+            arrExperience.forEach(experience=>{
+                divCompleteResume.innerHTML+=`
+                    <div class="mx-5">
+                        <p class="fw-bold">${experience["experience_name"]}</p>
+                        ${experience["experience_description"]}
+                    </div>
+                `
+            })
+        }
+        
+        if(arrSkills.length!=0){
+            //Create the Skills Section
+            divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
+            arrSkills.forEach(skill=>{
+                divCompleteResume.innerHTML+=`
+                    <div class="mx-5">
+                        <p class="fw-bold">${skill["skill_name"]}</p>
+                        ${skill["skill_description"]}
+                    </div>
+                `
+            })
+        }
 
-        //Create the Skills Section
-        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
-        arrSkills.forEach(skill=>{
-            divCompleteResume.innerHTML+=`
-                <div class="mx-5">
-                    <p class="fw-bold">${skill["skill_name"]}</p>
-                    ${skill["skill_description"]}
-                </div>
-            `
-        })
-
-        //Create the Credentials Section
-        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
-        arrCredentails.forEach(credential=>{
-            divCompleteResume.innerHTML+=`
-                <div class="mx-5">
-                    <p class="fw-bold">${credential["credential_name"]}</p>
-                    ${credential["credential_description"]}
-                </div>
-            `
-        })
+        if(arrCredentails.length!=0){
+            //Create the Credentials Section
+            divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
+            arrCredentails.forEach(credential=>{
+                divCompleteResume.innerHTML+=`
+                    <div class="mx-5">
+                        <p class="fw-bold">${credential["credential_name"]}</p>
+                        ${credential["credential_description"]}
+                    </div>
+                `
+            })
+        }
     })
-    
 }

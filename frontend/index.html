@@ -6,26 +6,39 @@
     <title>Resume Builder</title>
     <link rel="stylesheet" href="style/lib/bootstrap.min.css">
     <link rel="stylesheet" href="style/lib/bootstrap-icons.min.css">
+    <style>
+        @media print{
+            @page{
+                margin:0;
+            }
+            .no_show_on_print{
+                display:none;
+            }
+            #divCompleteResume{
+                display:block !important;
+            }
+        }
+    </style>
 </head> 
     <body>
-        <nav class="d-flex bg-dark text-white py-3  align-items-center mb-5">
-            <div class="col-2">
+        <nav class="d-flex bg-dark text-white py-3 align-items-center mb-5 no_show_on_print">
+            <div class="col-2 no_show_on_print">
                 <p>Some Content</p>
             </div>
-            <div class="col-10 d-block d-md-flex d-lg-flex justify-content-end align-items-center">
+            <div class="col-10 d-block d-md-flex d-lg-flex justify-content-end align-items-center no_show_on_print">
                 <div>
-                    <button class="mx-3 btn text-white btn-primary" id="btnResumeBuild">Build My Resume</button>
+                    <button class="mx-3 btn text-white btn-primary no_show_on_print" id="btnResumeBuild">Build My Resume</button>
                 </div>
                 <div > 
-                    <button class="mx-3 btn text-white btn-outline-info" id="btnItemsAdd">Add Resume Items</button>
+                    <button class="mx-3 btn text-white btn-outline-info no_show_on_print" id="btnItemsAdd">Add Resume Items</button>
                 </div>
                 <div>
-                    <button class="mx-3 btn text-white btn-outline-secondary" id="btnSettings">Settings</button>
+                    <button class="mx-3 btn text-white btn-outline-secondary no_show_on_print" id="btnSettings">Settings</button>
                 </div>
             </div>
         </nav>
         <main>
-            <div id="divAddItems" class="" >
+            <div id="divAddItems" class="no_show_on_print" >
                 <div class="card mt-4">
                     <div class="card-body">
                             <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button><button class="btn mx-3 mb-2 btn-info ai_button" id="btnSkillSuggest">AI Suggestions</button>
@@ -82,7 +95,7 @@
                 </div>
             </div>
 
-            <div id="divCreateResume" class="mx-2 d-block" style="display:none;">
+            <div id="divCreateResume" class="mx-2 no_show_on_print" style="display:none;">
                 <div class="card">
                     <div class="card-body">
                         <h2>1) Build Your Resume - Resume Items</h2>
@@ -145,7 +158,7 @@
                 </div>
             </div>
             
-            <div id="divCompleteResume" style="display:none;" class="d-block mx-5">
+            <div id="divCompleteResume" style="display:none;" class="mx-5">
                 Hi mom
             </div>
         </main>
