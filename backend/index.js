@@ -15,10 +15,9 @@ const dbMain = new sqlite3.Database('main.db',err=>{
 })
 
 //AI Setup
-const GEMINI_API_KEY= process.env.GEMINI_API_KEY
 const GEMINI_MODEL = "gemma-3-1b-it"
 
-const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY})
+let ai = new GoogleGenAI({}) // I know let is unconventional here, but it lets me change the API key so I don't really care.
 
 //express setup
 const HTTP_PORT = 3000
@@ -374,5 +373,15 @@ app.post("/api/ai-suggestions/objective-statement",async (req,res)=>{
         })
     }catch(err){
         res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+    }
+})
+
+app.put("/api/ai-suggestions/set-api-key",(req,res)=>{
+    try{
+        const strNewAPIKey = req.body.apiKey
+        ai = new GoogleGenAI({apiKey:strNewAPIKey})
+        res.status(200).json({status:"success",message:"Successfully updated API key"})
+    }catch(err){
+        res.status(500).json({status:"error",message:"Could not chage API keys"})
     }
 })

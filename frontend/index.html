@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder</title>
+    <title>Write My Resume</title>
     <link rel="stylesheet" href="style/lib/bootstrap.min.css">
     <link rel="stylesheet" href="style/lib/bootstrap-icons.min.css">
     <style>
@@ -23,7 +23,7 @@
     <body>
         <nav class="d-flex bg-dark text-white py-3 align-items-center mb-5 no_show_on_print">
             <div class="col-2 no_show_on_print">
-                <p>Some Content</p>
+                <img src="./img/logo.png" alt="write my resume logo">
             </div>
             <div class="col-10 d-block d-md-flex d-lg-flex justify-content-end align-items-center no_show_on_print">
                 <div>
@@ -38,7 +38,7 @@
             </div>
         </nav>
         <main>
-            <div id="divAddItems" class="no_show_on_print" >
+            <div id="divAddItems" class="no_show_on_print " >
                 <div class="card mt-4">
                     <div class="card-body">
                             <h2 class="mb-3 mt-4">Skills</h2> <button class="btn mx-3 mb-2 btn-success add_button" id="btnSkillAdd">Add</button><button class="btn mx-3 mb-2 btn-danger remove_button" id="btnSkillRemove">Remove</button><button class="btn mx-3 mb-2 btn-primary edit_button" id="btnSkillEdit">Edit</button><button class="btn mx-3 mb-2 btn-info ai_button" id="btnSkillSuggest">AI Suggestions</button>
@@ -161,6 +161,21 @@
             <div id="divCompleteResume" style="display:none;" class="mx-5">
                 Hi mom
             </div>
+
+            <div id="divSettings" class="mx-5 no_show_on_print" style="display:none;">
+                <h1 class="text-center">Settings</h1>
+                <div class="card">
+                    <div class="card-body col-6"">
+                        <h3>Add your API Token</h3>
+                        <form id="formAPIToken">
+                            <p>Input your Gemini AI token to use the AI features of this application. Get one for free at <a href="https://aistudio.google.com/">https://aistudio.google.com/</a></p>
+                            <label for="txtApiToken" class="form-label">API Token</label>
+                            <input type="text" id="txtApiToken" class="form-control" >
+                            <button type="button" class="btn btn-primary mt-3" id="btnChangeAPIToken">Change API Token</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <script src="js/lib/bootstrap.bundle.min.js"></script>
@@ -170,6 +185,7 @@
         <script src="js/tables.js"></script>
         <script src="js/createResume.js"></script>
         <script src="js/resumeBuild.js"></script>
+        <script src="js/settings.js"></script>
 
 
     </body>
