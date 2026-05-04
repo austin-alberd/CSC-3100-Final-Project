@@ -29,6 +29,13 @@ document.querySelectorAll(".add_button").forEach(button=>{
             html:`<label for="txtTitle" class="mt-3">Title</label>
                 <input type="text" id="txtTitle" class="form-control">
                 <label for="txtDescription" class="mt-3">Description</label>
+                <p>Enter your points separated by periods. For example</p>
+                <p>Point 1. Point 2. Point 3.</p> <p> Would show as </p>
+                <ul>
+                    <li>Point 1</li>
+                    <li>Point 2</li>
+                    <li>Point 3</li>
+                </ul>
                 <input type="text" id="txtDescription" class="form-control"></input>`,
                 focusConfirm: false,
                 preConfirm: ()=>{
@@ -36,6 +43,13 @@ document.querySelectorAll(".add_button").forEach(button=>{
                 }
             })
         
+        let arrDescriptionFromForm = formValues[1].split(".").filter(item=>item!="")
+        let strFormDescription = "<ul>"
+        arrDescriptionFromForm.forEach(item=>{
+            strFormDescription+=`<li>${item}</li>`
+        })
+        strFormDescription+="</ul>"
+
         if(formValues){
             fetch(`${strAPIBaseURL}/${strRouteName}`,{
                 method:"POST",
@@ -44,7 +58,7 @@ document.querySelectorAll(".add_button").forEach(button=>{
                 },
                 body: JSON.stringify({
                     skill:formValues[0],
-                    description:formValues[1]
+                    description:strFormDescription
                 })
             }).then(res=>res.json()).then(data=>{
                 if(data.status=="success"){
