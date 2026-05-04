@@ -1,3 +1,6 @@
 *.env
 node_modules/
 *.pdf
+sharingStatement.txt
+genAIUsage.txt
+githubLink.txt
