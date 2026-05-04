@@ -355,3 +355,24 @@ app.get("/api/ai-suggestions/experience/:id",async (req,res)=>{
         res.status(500).json({status:"error",message:"could not provide AI suggestions"})
     }
 })
+
+app.post("/api/ai-suggestions/objective-statement",async (req,res)=>{
+    try{
+        const strJob=req.body.job
+        const strQualificationsArray = req.body.qualifications
+        ai.models.generateContent({
+            model:GEMINI_MODEL,
+            contents:`
+               You are a resume coach write an objective statement based on the provided job and skills, experience, and credentials. It needs to be 3 to 5 sentences long. DO NOT USE "this candidate" or anything like it DO NOT USE THE FIRST PERSON OR ANY POINT OF VEIW.Follow the output example.ONLY OUTPUT THE OBJECTIVE STATEMENT. NO MARKDOWN. NO SUGGESTIONS
+               Output Example:
+               Results-driven leader and Eagle Scout seeking the CTO position at Austin Inc to leverage extensive experience in risk management, donor relations, and high-volume technical production to drive innovation and support organizational growth.
+               Job:${strJob}
+               Skills,Experience,Credentials:${strQualificationsArray}
+            `
+        }).then(response=>{
+            res.status(200).json({status:"success",message:"Generated objective statement",objectiveStatement:response.text})
+        })
+    }catch(err){
+        res.status(500).json({status:"error",message:"could not provide AI suggestions"})
+    }
+})

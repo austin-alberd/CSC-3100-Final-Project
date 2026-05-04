@@ -14,45 +14,60 @@ async function createResume(){
     const objJob = JSON.stringify(JSON.parse(sessionStorage.getItem("jobs")).filter(job=>job["job_id"] == sessionStorage.getItem("jobID"))[0])
     const arrAllQualifications = JSON.stringify([arrSkills,arrExperience,arrCredentails])
 
-    //Create the Header Object
-    divCompleteResume.innerHTML+=`
-        <div>
-            <h1 class="fw-bolder">${objContactInfo["firstName"]} ${objContactInfo["lastName"]}</h1>
-            <p>${objContactInfo["email"]} | ${objContactInfo["phone"]} | ${objContactInfo["linkedin"]} | ${objContactInfo["gitHub"]}</p>
-            <hr>
-        </div>
-    `
-
-    //Create the Experience Section
-    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Experience</h2>'
-    arrExperience.forEach(experience=>{
+    fetch(`${strAPIBaseURL}/ai-suggestions/objective-statement`,{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({job:objJob,qualifications:arrAllQualifications})}).then(res=>{
+        if(res.ok){
+            return res.json()
+        }else{
+            throw new Error("Bad response")
+        }
+    }).then(data=>{
+        //Create the Header Object
         divCompleteResume.innerHTML+=`
-            <div class="mx-5">
-                <p class="fw-bold">${experience["experience_name"]}</p>
-                ${experience["experience_description"]}
+            <div>
+                <h1 class="fw-bolder">${objContactInfo["firstName"]} ${objContactInfo["lastName"]}</h1>
+                <p>${objContactInfo["email"]} | ${objContactInfo["phone"]} | ${objContactInfo["linkedin"]} | ${objContactInfo["gitHub"]}</p>
+                <hr>
             </div>
         `
-    })
-
-    //Create the Skills Section
-    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
-    arrSkills.forEach(skill=>{
+        // Create the objective statement section
         divCompleteResume.innerHTML+=`
+            <h2 class="fw-bolder mt-3">Objective</h2>
             <div class="mx-5">
-                <p class="fw-bold">${skill["skill_name"]}</p>
-                ${skill["skill_description"]}
+                <p>${data["objectiveStatement"]}</p>
             </div>
         `
-    })
+        //Create the Experience Section
+        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Experience</h2>'
+        arrExperience.forEach(experience=>{
+            divCompleteResume.innerHTML+=`
+                <div class="mx-5">
+                    <p class="fw-bold">${experience["experience_name"]}</p>
+                    ${experience["experience_description"]}
+                </div>
+            `
+        })
 
-    //Create the Credentials Section
-    divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
-    arrCredentails.forEach(credential=>{
-        divCompleteResume.innerHTML+=`
-            <div class="mx-5">
-                <p class="fw-bold">${credential["credential_name"]}</p>
-                ${credential["credential_description"]}
-            </div>
-        `
+        //Create the Skills Section
+        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Skills</h2>'
+        arrSkills.forEach(skill=>{
+            divCompleteResume.innerHTML+=`
+                <div class="mx-5">
+                    <p class="fw-bold">${skill["skill_name"]}</p>
+                    ${skill["skill_description"]}
+                </div>
+            `
+        })
+
+        //Create the Credentials Section
+        divCompleteResume.innerHTML+='<h2 class="fw-bolder mt-3">Credentials</h2>'
+        arrCredentails.forEach(credential=>{
+            divCompleteResume.innerHTML+=`
+                <div class="mx-5">
+                    <p class="fw-bold">${credential["credential_name"]}</p>
+                    ${credential["credential_description"]}
+                </div>
+            `
+        })
     })
+    
 }
