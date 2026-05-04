@@ -141,4 +141,30 @@ document.querySelector("#btnResumeItems").addEventListener("click",()=>{
     sessionStorage.setItem("resumeItems",JSON.stringify(objResumeItemIDS))
 })
 
-document.querySelector()
+document.querySelector("#btnGenerateResume").addEventListener("click",()=>{
+    const txtFirstName = document.querySelector("#txtFirstName").value
+    const txtLastName = document.querySelector("#txtLastName").value
+    const txtEmail = document.querySelector("#txtEmail").value
+    const txtPhone = document.querySelector("#txtPhone").value
+
+    const objPersonalInformation = {
+        firstName:txtFirstName,
+        lastName:txtLastName,
+        email:txtEmail,
+        phone:txtPhone
+    }
+
+    sessionStorage.setItem("contactInfo",JSON.stringify(objPersonalInformation))
+
+    if(sessionStorage.getItem("contactInfo")&&sessionStorage.getItem("resumeItems")&&sessionStorage.getItem("jobID")){
+        Swal.fire({
+            icon:"info",
+            title:"Generating Your Resume"
+        })
+    }else{
+        Swal.fire({
+            icon:"error",
+            title:"Please Select a Job and Resume Items"
+        })
+    }
+})
